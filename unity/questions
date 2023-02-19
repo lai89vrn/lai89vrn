@@ -1,0 +1,60 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
+
+public class questions : MonoBehaviour
+{
+
+    public GameObject text_question;
+    public float sec = 3f;
+    public float time = 0;
+
+    string[] questions_arr = new[] { "Найди корову", "Найди корову", "Найди собаку" };
+
+    int answer = 0;
+    int random_question = 0;
+    int question_for_user = 0;
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        //questions_arr.add["cow"];
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        if (text_question.GetComponent<Text>().text == "Верно!")
+        {
+            if (time > sec)
+            {
+                answer = 0;
+                question_for_user = 0;
+                time = 0;
+            }
+
+           time += Time.deltaTime;
+        }
+        if (answer == 0 && question_for_user == 0)
+        {
+            random_question = make_random_question();
+            text_question.GetComponent<Text>().text = questions_arr[random_question];
+        }
+        else
+        {
+            //text_question.GetComponent<Text>().text = questions_arr[question_for_user];
+        }
+    }
+
+    int make_random_question()
+    {
+        var rnd = new System.Random();
+ 
+        int value = rnd.Next(0, 3);
+        question_for_user = value;
+
+        return question_for_user;
+    }
+}
